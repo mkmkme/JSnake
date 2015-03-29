@@ -24,11 +24,11 @@ public class SnakePanel extends JPanel {
 		for (Link i = snake.head; i != null; i = i.next) {
 			int x = i.getX();
 			int y = i.getY();
-			g.fillRect((x) * Constants.SNAKE_SIDE, (y) * Constants.SNAKE_SIDE, Constants.SNAKE_SIDE, Constants.SNAKE_SIDE);
+			g.fillRect(x * Constants.SNAKE_SIDE, y * Constants.SNAKE_SIDE, Constants.SNAKE_SIDE, Constants.SNAKE_SIDE);
 		}
 		int x = snake.mouse.x;
 		int y = snake.mouse.y;
-		g.fillRect((x) * Constants.SNAKE_SIDE, (y) * Constants.SNAKE_SIDE, Constants.SNAKE_SIDE, Constants.SNAKE_SIDE);
+		g.fillRect(x * Constants.SNAKE_SIDE, y * Constants.SNAKE_SIDE, Constants.SNAKE_SIDE, Constants.SNAKE_SIDE);
 	}
 	
 

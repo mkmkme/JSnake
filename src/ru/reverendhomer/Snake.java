@@ -94,19 +94,16 @@ public class Snake {
 		
 	public void gameOver() {
 		go = true;
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JFrame goFrame = new JFrame("Игра окончена");
-				JLabel message = new JLabel("К сожалению, Вы проиграли. Вы набрали " + getScore() + " очков.");
-				goFrame.add(message);
-				goFrame.setSize(400, 50);
-				goFrame.setResizable(false);
-				goFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("res/snake.gif"));
-				goFrame.setLocationRelativeTo(null);
-				goFrame.setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> {
+                    JFrame goFrame = new JFrame("Игра окончена");
+                    JLabel message = new JLabel("К сожалению, Вы проиграли. Вы набрали " + getScore() + " очков.");
+                    goFrame.add(message);
+                    goFrame.setSize(400, 50);
+                    goFrame.setResizable(false);
+                    goFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("res/snake.gif"));
+                    goFrame.setLocationRelativeTo(null);
+                    goFrame.setVisible(true);
+                });
 	}
 	
 	public void moveDown() {

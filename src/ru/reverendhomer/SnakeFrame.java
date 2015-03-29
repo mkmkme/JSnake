@@ -5,7 +5,6 @@ import java.awt.Container;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -24,7 +23,7 @@ import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
 public class SnakeFrame extends JFrame {
-	private Container root;
+	private final Container root;
 	static SnakePanel sPanel;
 
 	public SnakeFrame() {
@@ -38,29 +37,17 @@ public class SnakeFrame extends JFrame {
 		JMenu help = new JMenu("Help");
 		JMenu gameMenu = new JMenu("Game");
 		JMenuItem about = new JMenuItem("About");
-		about.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				SwingUtilities.invokeLater(new AboutRunnable());
-			}
-		});
+		about.addActionListener((ActionEvent arg0) -> {
+                    SwingUtilities.invokeLater(new AboutRunnable());
+                });
 		JMenuItem newGame = new JMenuItem("New game");
-		newGame.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new AskRunnable());
-			}
-		});
+		newGame.addActionListener((ActionEvent e) -> {
+                    SwingUtilities.invokeLater(new AskRunnable());
+                });
 		JMenuItem quit = new JMenuItem("Quit");
-		quit.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		quit.addActionListener((ActionEvent e) -> {
+                    System.exit(0);
+                });
 		help.add(about);
 		gameMenu.add(newGame);
 		gameMenu.add(quit);
@@ -78,13 +65,9 @@ public class SnakeFrame extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				new SnakeFrame().setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> {
+                    new SnakeFrame().setVisible(true);
+                });
 	}
 }
 class AboutRunnable implements Runnable {
@@ -128,19 +111,19 @@ class AskRunnable implements Runnable {
 		final JRadioButton medium = new JRadioButton("Medium");
 		final JRadioButton hard = new JRadioButton("Hard");
 		JButton ok = new JButton("OK");
-		ok.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				SnakePanel.snake = new Snake();
-				askFrame.setVisible(false);
-				if (easy.isSelected())
-					new Thread(new EasyRunnable()).start();
-				else if (medium.isSelected())
-					new Thread(new MediumRunnable()).start();
-				else new Thread(new HardRunnable()).start();
-			}
-		});
+		ok.addActionListener((ActionEvent arg0) -> {
+                    SnakePanel.snake = new Snake();
+                    askFrame.setVisible(false);
+                    if (easy.isSelected()) {
+                        new Thread(new EasyRunnable()).start();
+                    }
+                    else if (medium.isSelected()) {
+                        new Thread(new MediumRunnable()).start();
+                    }
+                    else {
+                        new Thread(new HardRunnable()).start();
+                    }
+                });
 		
 		LayoutManager lm = new BorderLayout();
 		panel.setLayout(lm);
@@ -167,7 +150,6 @@ class EasyRunnable implements Runnable {
 			try {
 				Thread.sleep(Constants.EASY_REPAINT);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}
@@ -182,7 +164,6 @@ class MediumRunnable implements Runnable {
 			try {
 				Thread.sleep(Constants.MEDIUM_REPAINT);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}
@@ -197,7 +178,6 @@ class HardRunnable implements Runnable {
 			try {
 				Thread.sleep(Constants.HARD_REPAINT);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}	
@@ -208,28 +188,33 @@ class KListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
+                Direction direct = SnakePanel.snake.head.direction;
 		switch (key) {
 		case KeyEvent.VK_UP:
-			if (SnakePanel.snake.head.direction == Direction.UP || SnakePanel.snake.head.direction == Direction.DOWN)
+			if (direct == Direction.UP || direct == Direction.DOWN) {
 				return;
+                        }
 			SnakePanel.snake.moveUp();
 			break;
 				
 		case KeyEvent.VK_DOWN:
-			if (SnakePanel.snake.head.direction == Direction.UP || SnakePanel.snake.head.direction == Direction.DOWN)
+			if (direct == Direction.UP || direct == Direction.DOWN) {
 				return;
+                        }
 			SnakePanel.snake.moveDown();
 			break;
 			
 		case KeyEvent.VK_LEFT:
-			if (SnakePanel.snake.head.direction == Direction.LEFT || SnakePanel.snake.head.direction == Direction.RIGHT)
+			if (direct == Direction.LEFT || direct == Direction.RIGHT) {
 				return;
+                        }
 			SnakePanel.snake.moveLeft();
 			break;
 			
 		case KeyEvent.VK_RIGHT:
-			if (SnakePanel.snake.head.direction == Direction.LEFT || SnakePanel.snake.head.direction == Direction.RIGHT)
+			if (direct == Direction.LEFT || direct == Direction.RIGHT) {
 				return;
+                        }
 			SnakePanel.snake.moveRight();
 			break;
 			
