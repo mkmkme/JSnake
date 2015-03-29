@@ -191,28 +191,28 @@ class KListener implements KeyListener {
                 Direction direct = SnakePanel.snake.head.direction;
 		switch (key) {
 		case KeyEvent.VK_UP:
-			if (direct == Direction.UP || direct == Direction.DOWN) {
+			if (direct.isVertical()) {
 				return;
                         }
 			SnakePanel.snake.moveUp();
 			break;
 				
 		case KeyEvent.VK_DOWN:
-			if (direct == Direction.UP || direct == Direction.DOWN) {
+			if (direct.isVertical()) {
 				return;
                         }
 			SnakePanel.snake.moveDown();
 			break;
 			
 		case KeyEvent.VK_LEFT:
-			if (direct == Direction.LEFT || direct == Direction.RIGHT) {
+			if (direct.isHorizontal()) {
 				return;
                         }
 			SnakePanel.snake.moveLeft();
 			break;
 			
 		case KeyEvent.VK_RIGHT:
-			if (direct == Direction.LEFT || direct == Direction.RIGHT) {
+			if (direct.isHorizontal()) {
 				return;
                         }
 			SnakePanel.snake.moveRight();
