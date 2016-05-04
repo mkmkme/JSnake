@@ -9,6 +9,6 @@ public enum Direction {
     }
 
     public boolean isHorizontal() {
-        return this == LEFT || this == DOWN;
+        return this == LEFT || this == RIGHT;
     }
 }
